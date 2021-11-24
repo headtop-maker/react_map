@@ -19,7 +19,7 @@ const TabScreen = () => {
         options={{
           title: 'Карта',
           headerRight: () => {
-            return <Text>asdasd</Text>;
+            return <Text>Настройки</Text>;
           },
         }}
       />

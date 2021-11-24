@@ -1,29 +1,23 @@
 import * as React from 'react';
 
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 const TabMapScreen = () => {
   const initialRegion = {
-    latitude: 37.72825,
-    longitude: -122.4324,
-    latitudeDelta: 0.25,
-    longitudeDelta: 0.15,
+    latitude: 35.6762,
+    longitude: 139.6503,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
   };
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Tab Map Screen</Text>
-      <View>
-        <MapView style={styles.map} initialRegion={initialRegion}>
-          <Marker coordinate={{latitude: 37.78825, longitude: -122.4324}} />
-          <Marker coordinate={{latitude: 37.78525, longitude: -122.4224}} />
-          <Marker coordinate={{latitude: 37.7765, longitude: -122.4124}} />
-          <Marker coordinate={{latitude: 37.7965, longitude: -122.4424}} />
-          <Marker coordinate={{latitude: 37.8065, longitude: -122.4424}} />
-          <Marker coordinate={{latitude: 37.7765, longitude: -122.4424}} />
-          <Marker coordinate={{latitude: 37.7565, longitude: -122.4324}} />
-        </MapView>
-      </View>
+      <MapView
+        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        style={styles.map}
+        region={initialRegion}>
+        <Marker coordinate={initialRegion} description="tokio region" />
+      </MapView>
     </SafeAreaView>
   );
 };
@@ -35,8 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   map: {
-    width: '50%',
-    height: '50%',
+    width: '100%',
+    height: '100%',
   },
 });
 
