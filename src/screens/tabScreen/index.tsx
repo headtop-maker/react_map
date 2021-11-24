@@ -6,6 +6,9 @@ import TabServiceLocationScreen from '../tabs/tabServiceLocationScreen';
 import TAB_SCREENS from '../../constants/tabscreens';
 import {Text} from 'react-native';
 
+import Maps from '../../common/icons/svg/maps.svg';
+import Person from '../../common/icons/svg/person.svg';
+
 const Tab = createBottomTabNavigator();
 const TabScreen = () => {
   return (
@@ -21,12 +24,16 @@ const TabScreen = () => {
           headerRight: () => {
             return <Text>Настройки</Text>;
           },
+          tabBarIcon: () => <Person width={30} height={30} />,
         }}
       />
       <Tab.Screen
         name={TAB_SCREENS.TabServiceLocationScreen}
         component={TabServiceLocationScreen}
-        options={{title: 'Включить наблюдение'}}
+        options={{
+          title: 'Включить наблюдение',
+          tabBarIcon: () => <Maps width={30} height={30} />,
+        }}
       />
     </Tab.Navigator>
   );
