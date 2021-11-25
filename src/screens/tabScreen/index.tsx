@@ -4,7 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TabMapScreen from '../tabs/tabMapScreen';
 import TabServiceLocationScreen from '../tabs/tabServiceLocationScreen';
 import TAB_SCREENS from '../../constants/tabscreens';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 
 import Maps from '../../common/icons/svg/maps.svg';
 import Person from '../../common/icons/svg/person.svg';
