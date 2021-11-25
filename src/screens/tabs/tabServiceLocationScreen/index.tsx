@@ -22,19 +22,6 @@ const TabServiceLocationScreen = () => {
   const [location, setLocation] = useState<ILocation>();
   const [startService, setStartService] = useState<boolean>(false);
 
-  // GetLocation.getCurrentPosition({
-  //   enableHighAccuracy: true,
-  //   timeout: 1500000,
-  // })
-  //   .then(location => {
-  //     // console.log(location.latitude);
-  //     setLocation(location);
-  //   })
-  //   .catch(error => {
-  //     const {code, message} = error;
-  //     console.warn(code, message);
-  //   });
-
   const handleAwaitLocation = async () => {
     setLocation(
       await GetLocation.getCurrentPosition({
@@ -51,7 +38,6 @@ const TabServiceLocationScreen = () => {
   }, [location, startService]);
 
   console.log(location);
-  // console.log(startService);
 
   return (
     <SafeAreaView style={styles.container}>
