@@ -1,22 +1,44 @@
 import * as React from 'react';
-
+import database from '@react-native-firebase/database';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import {useEffect, useState} from 'react';
 
 const TabMapScreen = () => {
-  const initialRegion = {
+  const [initialRegion, setInitialRegion] = useState({
     latitude: 37.72825,
     longitude: -122.4324,
     latitudeDelta: 0.25,
     longitudeDelta: 0.15,
-  };
+  });
+  const [oneMarker, setOneMarker] = useState({
+    latitude: 37.72825,
+    longitude: -122.4324,
+  });
+
+  useEffect(() => {
+    const reference = database().ref('/location');
+    reference.on('value', snapshot => {
+      console.log('User data: ', snapshot.val());
+      setInitialRegion(prevState => ({
+        ...prevState,
+        latitude: snapshot.val().latitude,
+        longitude: snapshot.val().longitude,
+      }));
+      setOneMarker({
+        latitude: snapshot.val().latitude,
+        longitude: snapshot.val().longitude,
+      });
+    });
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         region={initialRegion}>
-        <Marker coordinate={{latitude: 37.78825, longitude: -122.4324}} />
+        <Marker coordinate={oneMarker} />
         <Marker coordinate={{latitude: 37.78525, longitude: -122.4224}} />
         <Marker coordinate={{latitude: 37.7765, longitude: -122.4124}} />
         <Marker coordinate={{latitude: 37.7965, longitude: -122.4424}} />

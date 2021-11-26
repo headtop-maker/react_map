@@ -4,6 +4,7 @@ import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import IconCamera from '../../../common/icons/svg/camera.svg';
 import GetLocation from 'react-native-get-location';
 import {useEffect, useState} from 'react';
+import database from '@react-native-firebase/database';
 
 interface ILocation {
   latitude: number;
@@ -23,12 +24,18 @@ const TabServiceLocationScreen = () => {
   const [startService, setStartService] = useState<boolean>(false);
 
   const handleAwaitLocation = async () => {
-    setLocation(
-      await GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 1500000,
-      }),
-    );
+    const location = await GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 1500000,
+    });
+    setLocation(location);
+    const reference = database().ref('/location');
+    reference
+      .set({
+        latitude: location.latitude,
+        longitude: location.longitude,
+      })
+      .then(() => console.log('Data set'));
   };
 
   useEffect(() => {
@@ -81,4 +88,13 @@ export default TabServiceLocationScreen;
 //         const {code, message} = error;
 //         console.warn(code, message);
 //       });
+// };
+
+// const handleAwaitLocation = async () => {
+//   setLocation(
+//       await GetLocation.getCurrentPosition({
+//         enableHighAccuracy: true,
+//         timeout: 1500000,
+//       }),
+//   );
 // };
