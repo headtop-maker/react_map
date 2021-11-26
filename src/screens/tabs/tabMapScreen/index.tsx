@@ -30,7 +30,7 @@ const TabMapScreen = () => {
         longitude: snapshot.val().longitude,
       });
     });
-  }, []);
+  }, [database().ref]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,12 +39,6 @@ const TabMapScreen = () => {
         style={styles.map}
         region={initialRegion}>
         <Marker coordinate={oneMarker} />
-        <Marker coordinate={{latitude: 37.78525, longitude: -122.4224}} />
-        <Marker coordinate={{latitude: 37.7765, longitude: -122.4124}} />
-        <Marker coordinate={{latitude: 37.7965, longitude: -122.4424}} />
-        <Marker coordinate={{latitude: 37.8065, longitude: -122.4424}} />
-        <Marker coordinate={{latitude: 37.7765, longitude: -122.4424}} />
-        <Marker coordinate={{latitude: 37.7565, longitude: -122.4324}} />
       </MapView>
     </SafeAreaView>
   );
