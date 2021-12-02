@@ -44,6 +44,8 @@ const TabServiceLocationScreen = () => {
     }
   }, [location, startService]);
 
+  useEffect(() => () => setStartService(false), []);
+
   console.log(location);
 
   return (
