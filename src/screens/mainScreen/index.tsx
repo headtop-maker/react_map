@@ -35,6 +35,7 @@ const MainScreen = ({navigation}: IProps) => {
 
         }
         <TextInput
+            testID="testEmailInput"
             style={styles.input}
             onChangeText={setEmail}
             value={email}
@@ -42,6 +43,7 @@ const MainScreen = ({navigation}: IProps) => {
             placeholder={"Введите e-mail"}
         />
         <TextInput
+            testID="testPasswordInput"
             style={styles.input}
             onChangeText={setPassword}
             value={password}
