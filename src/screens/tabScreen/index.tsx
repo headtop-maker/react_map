@@ -16,6 +16,7 @@ const TabScreen = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {backgroundColor: 'powderblue'},
+        tabBarShowLabel: false,
       }}>
       <Tab.Screen
         name={TAB_SCREENS.TabMapScreen}
@@ -39,6 +40,7 @@ const TabScreen = () => {
         component={TabServiceLocationScreen}
         options={{
           title: 'Включить наблюдение',
+
           headerRight: () => {
             return (
               <View style={{marginRight: 20}}>
