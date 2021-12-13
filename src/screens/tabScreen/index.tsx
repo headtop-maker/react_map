@@ -9,13 +9,32 @@ import {TouchableOpacity, View} from 'react-native';
 import Maps from '../../common/icons/svg/maps.svg';
 import Person from '../../common/icons/svg/person.svg';
 import Settings from '../../common/icons/svg/settings.svg';
+import SCREENS from '../../constants/screen';
 
 const Tab = createBottomTabNavigator();
-const TabScreen = () => {
+const TabScreen = ({navigation}) => {
+  const SettingsHandler = () => {
+    return (
+      <View style={{marginRight: 20}}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(SCREENS.SettingsScreen)}>
+          <Settings width={30} height={30} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {backgroundColor: 'powderblue'},
+        tabBarStyle: {
+          height: 60,
+        },
+        tabBarItemStyle: {
+          backgroundColor: '#00ff00',
+          margin: 5,
+          borderRadius: 10,
+        },
         tabBarShowLabel: false,
       }}>
       <Tab.Screen
@@ -24,13 +43,7 @@ const TabScreen = () => {
         options={{
           title: 'Карта',
           headerRight: () => {
-            return (
-              <View style={{marginRight: 20}}>
-                <TouchableOpacity>
-                  <Settings width={30} height={30} />
-                </TouchableOpacity>
-              </View>
-            );
+            return <SettingsHandler />;
           },
           tabBarIcon: () => <Person width={30} height={30} />,
         }}
@@ -42,13 +55,7 @@ const TabScreen = () => {
           title: 'Включить наблюдение',
 
           headerRight: () => {
-            return (
-              <View style={{marginRight: 20}}>
-                <TouchableOpacity>
-                  <Settings width={30} height={30} />
-                </TouchableOpacity>
-              </View>
-            );
+            return <SettingsHandler />;
           },
           tabBarIcon: () => <Maps width={30} height={30} />,
         }}
