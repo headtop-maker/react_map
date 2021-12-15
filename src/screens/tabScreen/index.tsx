@@ -29,11 +29,14 @@ const TabScreen = ({navigation}) => {
       screenOptions={{
         tabBarStyle: {
           height: 60,
+          borderRadius: 50,
+          elevation: 4,
+          position: 'absolute',
+          margin: 10,
         },
         tabBarItemStyle: {
-          backgroundColor: '#00ff00',
           margin: 5,
-          borderRadius: 10,
+          borderRadius: 50,
         },
         tabBarShowLabel: false,
       }}>
@@ -45,7 +48,14 @@ const TabScreen = ({navigation}) => {
           headerRight: () => {
             return <SettingsHandler />;
           },
-          tabBarIcon: () => <Person width={30} height={30} />,
+          tabBarIcon: ({focused}) => (
+            <Person
+              width={30}
+              height={30}
+              strokeWidth={3}
+              stroke={focused ? '#ff4343' : '#0040ff'}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -53,11 +63,17 @@ const TabScreen = ({navigation}) => {
         component={TabServiceLocationScreen}
         options={{
           title: 'Включить наблюдение',
-
           headerRight: () => {
             return <SettingsHandler />;
           },
-          tabBarIcon: () => <Maps width={30} height={30} />,
+          tabBarIcon: ({focused}) => (
+            <Maps
+              width={30}
+              height={30}
+              strokeWidth={3}
+              stroke={focused ? '#ff4343' : '#0040ff'}
+            />
+          ),
         }}
       />
     </Tab.Navigator>
