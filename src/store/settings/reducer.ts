@@ -4,7 +4,7 @@ import {AnyAction} from 'redux';
 
 const initialState: ISettings = {
   settingsForm: {
-    sendingTime: 1000,
+    sendingTime: 1500,
   },
 };
 
@@ -13,7 +13,9 @@ const settingsFormReducer = (state = initialState, action: AnyAction) => {
     case ActionType.changeTime:
       return {
         ...state,
-        sendingTime: action.payload,
+        settingsForm: {
+          sendingTime: action.payload,
+        },
       };
 
     default:

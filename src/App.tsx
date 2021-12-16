@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContainer from './container/mainContainer';
-
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -14,7 +14,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <MainContainer />
+        <SafeAreaProvider>
+          <MainContainer />
+        </SafeAreaProvider>
       </PersistGate>
     </Provider>
   );

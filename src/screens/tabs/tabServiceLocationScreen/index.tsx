@@ -5,6 +5,8 @@ import IconCamera from '../../../common/icons/svg/camera.svg';
 import GetLocation from 'react-native-get-location';
 import {useEffect, useState} from 'react';
 import database from '@react-native-firebase/database';
+import {useSelector} from 'react-redux';
+import {getChangeTime} from '../../../store/settings/selector';
 
 interface ILocation {
   latitude: number;
@@ -22,6 +24,7 @@ interface ILocation {
 const TabServiceLocationScreen = () => {
   const [location, setLocation] = useState<ILocation>();
   const [startService, setStartService] = useState<boolean>(false);
+  const getUpdateTimeLocation = useSelector(getChangeTime);
 
   const handleAwaitLocation = async () => {
     const location = await GetLocation.getCurrentPosition({
@@ -40,7 +43,7 @@ const TabServiceLocationScreen = () => {
 
   useEffect(() => {
     if (startService) {
-      setTimeout(handleAwaitLocation, 1500);
+      setTimeout(handleAwaitLocation, getUpdateTimeLocation);
     }
   }, [location, startService]);
 
