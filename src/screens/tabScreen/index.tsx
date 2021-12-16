@@ -10,9 +10,15 @@ import Maps from '../../common/icons/svg/maps.svg';
 import Person from '../../common/icons/svg/person.svg';
 import Settings from '../../common/icons/svg/settings.svg';
 import SCREENS from '../../constants/screen';
+import {NavigationProp} from '@react-navigation/native';
+import {IRouteParamList} from '../../navigation/types';
+
+interface ITabProps {
+  navigation: NavigationProp<IRouteParamList>;
+}
 
 const Tab = createBottomTabNavigator();
-const TabScreen = ({navigation}) => {
+const TabScreen = ({navigation}: ITabProps) => {
   const SettingsHandler = () => {
     return (
       <View style={{marginRight: 20}}>
