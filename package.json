@@ -16,7 +16,6 @@
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
-    "@reduxjs/toolkit": "^1.7.1",
     "react": "17.0.2",
     "react-native": "0.66.3",
     "react-native-get-location": "^2.1.2",
@@ -32,42 +31,22 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@testing-library/react": "^12.1.2",
     "@testing-library/react-native": "^8.0.0",
     "@types/jest": "^27.0.3",
     "@types/react": "^17.0.36",
     "@types/react-native": "^0.66.5",
     "@types/react-redux": "^7.1.20",
     "@types/react-test-renderer": "^17.0.1",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^27.4.5",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.27.1",
-    "jest": "^26.6.3",
+    "jest": "^27.4.5",
     "metro-react-native-babel-preset": "^0.66.2",
     "prettier": "^2.5.1",
     "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "17.0.2",
+    "redux-devtools-extension": "^2.13.9",
+    "ts-jest": "^27.1.2",
     "typescript": "^4.5.2"
-  },
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-    },
-    "roots": [
-      "./src"
-    ],
-    "collectCoverage": true,
-    "testResultsProcessor": "<rootDir>/node_modules/ts-jest/coverageprocessor.js"
   }
 }
