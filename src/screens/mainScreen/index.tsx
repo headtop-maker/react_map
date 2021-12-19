@@ -30,7 +30,7 @@ const MainScreen = ({navigation}: IProps) => {
         {hide && (
           <View>
             <Text>Вы вошли как:</Text>
-            <Text>{email}</Text>
+            <Text testID="showEmail">{email}</Text>
           </View>
         )}
         <TextInput
