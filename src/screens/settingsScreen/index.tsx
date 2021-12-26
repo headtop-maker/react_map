@@ -46,12 +46,13 @@ const SettingsScreen = ({navigation}: IProps) => {
             {timesUpload.map((value, index) => {
               return (
                 <TouchableOpacity
+                  key={index}
                   onPress={() => {
                     setShowPicker(!showPicker);
                     setPickerValue(value);
                     updateTimeHandler(value);
                   }}>
-                  <View style={styles.pickerItem} key={index}>
+                  <View style={styles.pickerItem}>
                     <Text> {value}</Text>
                   </View>
                 </TouchableOpacity>
@@ -60,7 +61,7 @@ const SettingsScreen = ({navigation}: IProps) => {
           </View>
         )}
 
-        <Button title="go back" onPress={() => navigation.goBack()} />
+        <Button title="Назад" onPress={() => navigation.goBack()} />
       </View>
     </>
   );
