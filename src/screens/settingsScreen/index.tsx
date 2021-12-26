@@ -18,14 +18,16 @@ interface IPickerValue {
 
 const SettingsScreen = ({navigation}: IProps) => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
-  const [pickerValue, setPickerValue] = useState<number | string>(0);
-  const dispatch = useDispatch();
   const getUpdateTime = useSelector(getChangeTime);
-  console.log(getUpdateTime);
+  const [pickerValue, setPickerValue] = useState<number | string>(
+    getUpdateTime | 1000,
+  );
+  const dispatch = useDispatch();
 
   const updateTimeHandler = (value: number) => {
     dispatch(changeTimeAction(value));
   };
+  console.log(getUpdateTime);
 
   return (
     <>
@@ -33,12 +35,7 @@ const SettingsScreen = ({navigation}: IProps) => {
         <Text>SETTINGS SCREEN</Text>
         <View style={styles.showPicker}>
           <TouchableOpacity onPress={() => setShowPicker(!showPicker)}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                borderWidth: 1,
-              }}>
+            <View style={styles.pickerHeader}>
               <Text>PICKER HANDLER</Text>
               <Text>{pickerValue && pickerValue}</Text>
             </View>
@@ -48,16 +45,16 @@ const SettingsScreen = ({navigation}: IProps) => {
           <View style={styles.picker}>
             {timesUpload.map((value, index) => {
               return (
-                <View style={styles.pickerItem} key={index}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setShowPicker(!showPicker);
-                      setPickerValue(value);
-                      updateTimeHandler(value);
-                    }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowPicker(!showPicker);
+                    setPickerValue(value);
+                    updateTimeHandler(value);
+                  }}>
+                  <View style={styles.pickerItem} key={index}>
                     <Text> {value}</Text>
-                  </TouchableOpacity>
-                </View>
+                  </View>
+                </TouchableOpacity>
               );
             })}
           </View>
@@ -83,9 +80,16 @@ const styles = StyleSheet.create({
     borderColor: 'BLACK',
     width: '50%',
   },
+  pickerHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderWidth: 1,
+    marginBottom: 5,
+  },
   pickerItem: {
     borderWidth: 1,
     marginBottom: 3,
+    alignItems: 'center',
   },
 });
 export default SettingsScreen;
