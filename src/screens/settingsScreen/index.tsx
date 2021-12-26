@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  NativeModules,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getChangeTime} from '../../store/settings/selector';
 import {NavigationProp} from '@react-navigation/native';
@@ -16,11 +23,13 @@ interface IPickerValue {
   pickerValue: number | string | null;
 }
 
+const {ToastKotlin, NotificationPop} = NativeModules;
+
 const SettingsScreen = ({navigation}: IProps) => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
   const getUpdateTime = useSelector(getChangeTime);
   const [pickerValue, setPickerValue] = useState<number | string>(
-    getUpdateTime | 1000,
+    getUpdateTime ? getUpdateTime : 1000,
   );
   const dispatch = useDispatch();
 
@@ -51,6 +60,8 @@ const SettingsScreen = ({navigation}: IProps) => {
                     setShowPicker(!showPicker);
                     setPickerValue(value);
                     updateTimeHandler(value);
+                    ToastKotlin.show(`update time ${value}`, 5);
+                    NotificationPop.trigger('Параметр изменен', `${value}`);
                   }}>
                   <View style={styles.pickerItem}>
                     <Text> {value}</Text>
