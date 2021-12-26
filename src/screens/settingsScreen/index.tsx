@@ -18,12 +18,15 @@ interface IPickerValue {
 
 const SettingsScreen = ({navigation}: IProps) => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
-  const [pickerValue, setPickerValue] = useState<IPickerValue>();
-
+  const [pickerValue, setPickerValue] = useState<number | string>(0);
+  const dispatch = useDispatch();
   const getUpdateTime = useSelector(getChangeTime);
   console.log(getUpdateTime);
 
-  const dispatch = useDispatch();
+  const updateTimeHandler = (value: number) => {
+    dispatch(changeTimeAction(value));
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -33,6 +36,8 @@ const SettingsScreen = ({navigation}: IProps) => {
             <View
               style={{
                 flexDirection: 'row',
+                justifyContent: 'space-around',
+                borderWidth: 1,
               }}>
               <Text>PICKER HANDLER</Text>
               <Text>{pickerValue && pickerValue}</Text>
@@ -46,7 +51,9 @@ const SettingsScreen = ({navigation}: IProps) => {
                 <View style={styles.pickerItem} key={index}>
                   <TouchableOpacity
                     onPress={() => {
-                      setShowPicker(value);
+                      setShowPicker(!showPicker);
+                      setPickerValue(value);
+                      updateTimeHandler(value);
                     }}>
                     <Text> {value}</Text>
                   </TouchableOpacity>
@@ -56,13 +63,6 @@ const SettingsScreen = ({navigation}: IProps) => {
           </View>
         )}
 
-        <Text>{getUpdateTime}</Text>
-        <Button
-          title="DISPATCH TIME"
-          onPress={() => {
-            dispatch(changeTimeAction(5000));
-          }}
-        />
         <Button title="go back" onPress={() => navigation.goBack()} />
       </View>
     </>
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   showPicker: {
     width: '50%',
   },
+
   picker: {
     borderColor: 'BLACK',
     width: '50%',
