@@ -50,13 +50,15 @@ const TabServiceLocationScreen = () => {
       timeout: 1500000,
     });
     setLocation(location);
-    const reference = database().ref('/location');
-    reference
-      .set({
-        latitude: location.latitude,
-        longitude: location.longitude,
-      })
-      .then(() => console.log('Data set'));
+    if (deviceId) {
+      const reference = database().ref(`/${deviceId}`);
+      reference
+        .set({
+          latitude: location.latitude,
+          longitude: location.longitude,
+        })
+        .then(() => console.log('Data set'));
+    }
   };
 
   useEffect(() => {
@@ -75,9 +77,14 @@ const TabServiceLocationScreen = () => {
           {location &&
             `longitude= ${location.longitude}  latitude = ${location.latitude}`}
         </Text>
-
-        <Text>{deviceId}</Text>
-        <QRCode value={`${deviceId}`} size={200} />
+        {deviceId ? (
+          <View style={styles.qrData}>
+            <Text>Ваш ID : {deviceId}</Text>
+            <QRCode value={`${deviceId}`} size={200} />
+          </View>
+        ) : (
+          <Text>Нет данных ID </Text>
+        )}
 
         <Button
           title={`start location ${startService} `}
@@ -95,6 +102,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   body: {
+    alignItems: 'center',
+  },
+  qrData: {
     alignItems: 'center',
   },
 });
