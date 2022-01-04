@@ -32,7 +32,6 @@ class ShortMethodsModule internal constructor(private val reactContext: ReactApp
     fun getDeviceID(successCallback: Callback) {
         var devId = Settings.Secure.getString(currentActivity?.contentResolver, ANDROID_ID)
         successCallback.invoke(devId)
-        // Toast.makeText(reactApplicationContext, "Got id $devId", Toast.LENGTH_SHORT).show()
     }
 
     @ReactMethod

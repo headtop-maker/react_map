@@ -14,6 +14,7 @@ import {useEffect, useState} from 'react';
 import database from '@react-native-firebase/database';
 import {useSelector} from 'react-redux';
 import {getChangeTime} from '../../../store/settings/selector';
+import QRCode from 'react-native-qrcode-svg';
 
 interface ILocation {
   latitude: number;
@@ -69,17 +70,19 @@ const TabServiceLocationScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>Tab Service Location Screen</Text>
-      <View>
+      <View style={styles.body}>
         <Text>
           {location &&
             `longitude= ${location.longitude}  latitude = ${location.latitude}`}
         </Text>
+
+        <Text>{deviceId}</Text>
+        <QRCode value={`${deviceId}`} size={200} />
+
         <Button
           title={`start location ${startService} `}
           onPress={() => setStartService(!startService)}
         />
-        <Text>{deviceId}</Text>
-        <IconCamera width={200} height={200} />
       </View>
     </SafeAreaView>
   );
@@ -90,6 +93,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  body: {
+    alignItems: 'center',
   },
 });
 
