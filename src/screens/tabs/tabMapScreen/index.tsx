@@ -1,6 +1,6 @@
 import * as React from 'react';
 import database from '@react-native-firebase/database';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {Button, SafeAreaView, StyleSheet} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useEffect, useState} from 'react';
 
@@ -34,6 +34,7 @@ const TabMapScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Button title="Сканировать QR" onPress={() => {}} />
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '100%',
+    height: '95%',
   },
 });
 
