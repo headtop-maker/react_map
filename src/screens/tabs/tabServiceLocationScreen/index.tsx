@@ -1,6 +1,13 @@
 import * as React from 'react';
 
-import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  NativeModules,
+} from 'react-native';
 import IconCamera from '../../../common/icons/svg/camera.svg';
 import GetLocation from 'react-native-get-location';
 import {useEffect, useState} from 'react';
@@ -21,10 +28,20 @@ interface ILocation {
   course?: number;
 }
 
+const {ShortMethods} = NativeModules;
+
 const TabServiceLocationScreen = () => {
   const [location, setLocation] = useState<ILocation>();
   const [startService, setStartService] = useState<boolean>(false);
+  const [deviceId, setDeviceId] = useState<String>('');
   const getUpdateTimeLocation = useSelector(getChangeTime);
+
+  useEffect(() => {
+    ShortMethods.getDeviceID((devId: String) => {
+      setDeviceId(devId);
+    });
+    return setStartService(false);
+  }, []);
 
   const handleAwaitLocation = async () => {
     const location = await GetLocation.getCurrentPosition({
@@ -47,8 +64,6 @@ const TabServiceLocationScreen = () => {
     }
   }, [location, startService]);
 
-  useEffect(() => () => setStartService(false), []);
-
   console.log(location);
 
   return (
@@ -63,7 +78,7 @@ const TabServiceLocationScreen = () => {
           title={`start location ${startService} `}
           onPress={() => setStartService(!startService)}
         />
-
+        <Text>{deviceId}</Text>
         <IconCamera width={200} height={200} />
       </View>
     </SafeAreaView>
@@ -79,6 +94,8 @@ const styles = StyleSheet.create({
 });
 
 export default TabServiceLocationScreen;
+
+// useEffect(() => () => setStartService(false), []);
 
 // const glocation = () => { // из документации
 //   GetLocation.getCurrentPosition({
