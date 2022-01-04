@@ -1,8 +1,18 @@
 import * as React from 'react';
 import database from '@react-native-firebase/database';
-import {Button, SafeAreaView, StyleSheet} from 'react-native';
+import {
+  Alert,
+  Button,
+  Modal,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useEffect, useState} from 'react';
+import ModalWrapper from '../../../common/components/ModalWrapper';
 
 const TabMapScreen = () => {
   const [initialRegion, setInitialRegion] = useState({
@@ -35,12 +45,13 @@ const TabMapScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Button title="Сканировать QR" onPress={() => {}} />
-      <MapView
+      <ModalWrapper />
+      {/* <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         region={initialRegion}>
         <Marker coordinate={oneMarker} />
-      </MapView>
+      </MapView> */}
     </SafeAreaView>
   );
 };
