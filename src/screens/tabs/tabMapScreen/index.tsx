@@ -45,7 +45,6 @@ const TabMapScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Button title="Сканировать QR" onPress={() => {}} />
-      <ModalWrapper />
       {/* <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
