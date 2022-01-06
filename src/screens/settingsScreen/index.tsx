@@ -23,7 +23,7 @@ interface IPickerValue {
   pickerValue: number | string | null;
 }
 
-const {ToastKotlin, NotificationPop} = NativeModules;
+const {ToastKotlin, NotificationPop, ShortMethods} = NativeModules;
 
 const SettingsScreen = ({navigation}: IProps) => {
   const [showPicker, setShowPicker] = useState<boolean>(false);
@@ -62,7 +62,8 @@ const SettingsScreen = ({navigation}: IProps) => {
                     updateTimeHandler(value);
                     ToastKotlin.show(`update time ${value}`, 5);
                     NotificationPop.trigger('Параметр изменен', `${value}`);
-                  }}>
+                  }}
+                >
                   <View style={styles.pickerItem}>
                     <Text> {value}</Text>
                   </View>
@@ -71,7 +72,18 @@ const SettingsScreen = ({navigation}: IProps) => {
             })}
           </View>
         )}
-
+        <Button
+          title="Start service"
+          onPress={() => {
+            ShortMethods.startForeGroundService();
+          }}
+        />
+        <Button
+          title="Stop service"
+          onPress={() => {
+            ShortMethods.stopForeGroundService();
+          }}
+        />
         <Button title="Назад" onPress={() => navigation.goBack()} />
       </View>
     </>

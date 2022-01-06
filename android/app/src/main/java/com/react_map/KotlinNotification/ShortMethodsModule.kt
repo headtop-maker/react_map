@@ -1,6 +1,7 @@
 package com.react_map
 
-import android.Manifest.permission.*
+import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import android.provider.Settings.Secure.ANDROID_ID
 import android.telephony.TelephonyManager
@@ -10,6 +11,7 @@ import com.facebook.react.bridge.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+
 import java.util.*
 
 class ShortMethodsModule internal constructor(private val reactContext: ReactApplicationContext) :
@@ -62,4 +64,26 @@ class ShortMethodsModule internal constructor(private val reactContext: ReactApp
     fun getFireBaseOnce() {
         database = Firebase.database.reference
     }
+
+    @ReactMethod
+    fun startForeGroundService(){
+        val intent = Intent(getReactApplicationContext(), MyForegroundService::class.java)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.action = "START"
+            intent.putExtra("devId","location")
+            getReactApplicationContext()?.startForegroundService(intent)
+        };
+    }
+
+
+    @ReactMethod
+    fun stopForeGroundService(){
+        val intent = Intent(getReactApplicationContext(), MyForegroundService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.action = "STOP"
+            getReactApplicationContext()?.stopService(intent)
+        };
+    }
+
 }

@@ -1,36 +1,28 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  AppRegistry,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import React, {FC} from 'react';
+import {Text, StyleSheet, AppRegistry, TouchableOpacity} from 'react-native';
+import {BarCodeReadEvent} from 'react-native-camera';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
-const QrScannerScreen = () => {
-  const onSuccess = e => {
-    console.log(e.data);
-    // Linking.openURL(e.data).catch(err => console.error('An error', err));
-  };
+interface IQrScannerScreen {
+  onSuccess: (e: BarCodeReadEvent) => void;
+}
 
+const QrScannerScreen: FC<IQrScannerScreen> = ({onSuccess}) => {
   return (
     <QRCodeScanner
       onRead={onSuccess}
       // flashMode={RNCamera.Constants.FlashMode.torch}
-      topContent={
-        <Text style={styles.centerText}>
-          Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text>{' '}
-          on your computer and scan the QR code.
-        </Text>
-      }
-      bottomContent={
-        <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>OK. Got it!</Text>
-        </TouchableOpacity>
-      }
+      // topContent={
+      //   <Text style={styles.centerText}>
+      //     Отсканируйте QR код вашего телефона.
+      //   </Text>
+      // }
+      // bottomContent={
+      //   <TouchableOpacity style={styles.buttonTouchable}>
+      //     <Text style={styles.buttonText}>Сканировать</Text>
+      //   </TouchableOpacity>
+      // }
     />
   );
 };

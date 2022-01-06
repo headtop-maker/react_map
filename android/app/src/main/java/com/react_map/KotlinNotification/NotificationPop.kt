@@ -21,6 +21,7 @@ class NotificationPop : ReactContextBaseJavaModule {
     constructor(context: ReactApplicationContext) : super(context) {
         this.loadind = true
         this.myContext = context
+
     }
 
     override fun getName(): String {
@@ -39,7 +40,8 @@ class NotificationPop : ReactContextBaseJavaModule {
             notificationChannel.enableLights(true)
             notificationChannel.setDescription("Channel escription")
             notificationChannel.setLightColor(Color.RED)
-            notificationChannel.enableVibration(true)
+       notificationChannel.enableVibration(true)
+
 
             notificationManager = myContext.getSystemService(NotificationManager::class.java)
             notificationManager.createNotificationChannel(notificationChannel)

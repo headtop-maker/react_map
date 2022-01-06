@@ -9,10 +9,14 @@ import {
   StyleSheet,
   Text,
   View,
+  NativeModules,
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useEffect, useState} from 'react';
-import ModalWrapper from '../../../common/components/ModalWrapper';
+import QrScannerScreen from '../../../common/components/QrScannerScreen/QrScannerScreen';
+import {BarCodeReadEvent} from 'react-native-camera';
+
+const {ShortMethods} = NativeModules;
 
 const TabMapScreen = () => {
   const [initialRegion, setInitialRegion] = useState({
@@ -26,31 +30,56 @@ const TabMapScreen = () => {
     longitude: -122.4324,
   });
 
+  const [showScanner, setShowScanner] = useState<Boolean>(false);
+  const [qrRemoteDevice, setQrRemoteDevice] = useState<BarCodeReadEvent>();
+  const [track, setTrack] = useState<Boolean>(false);
+
   useEffect(() => {
-    const reference = database().ref('/location');
-    reference.on('value', snapshot => {
-      console.log('User data: ', snapshot.val());
-      setInitialRegion(prevState => ({
-        ...prevState,
-        latitude: snapshot.val().latitude,
-        longitude: snapshot.val().longitude,
-      }));
-      setOneMarker({
-        latitude: snapshot.val().latitude,
-        longitude: snapshot.val().longitude,
+    if (qrRemoteDevice) {
+      const reference = database().ref(`/${qrRemoteDevice?.data}`);
+      reference.on('value', snapshot => {
+        console.log('User data: ', snapshot.val());
+        setInitialRegion(prevState => ({
+          ...prevState,
+          latitude: snapshot.val().latitude,
+          longitude: snapshot.val().longitude,
+        }));
+        setOneMarker({
+          latitude: snapshot.val().latitude,
+          longitude: snapshot.val().longitude,
+        });
       });
-    });
-  }, [database().ref]);
+    }
+  }, [database().ref, qrRemoteDevice]);
+
+  const handleRemoteQrCode = (e: BarCodeReadEvent) => {
+    setQrRemoteDevice(e);
+    setShowScanner(false);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button title="Сканировать QR" onPress={() => {}} />
-      {/* <MapView
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-        style={styles.map}
-        region={initialRegion}>
-        <Marker coordinate={oneMarker} />
-      </MapView> */}
+      {showScanner && <QrScannerScreen onSuccess={handleRemoteQrCode} />}
+
+      {!qrRemoteDevice ? (
+        <Button
+          title="Сканировать QR"
+          onPress={() => {
+            setShowScanner(!showScanner);
+          }}
+        />
+      ) : (
+        <>
+          <Text>{qrRemoteDevice.data}</Text>
+          <MapView
+            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+            style={styles.map}
+            region={initialRegion}
+          >
+            <Marker coordinate={oneMarker} />
+          </MapView>
+        </>
+      )}
     </SafeAreaView>
   );
 };
@@ -68,3 +97,5 @@ const styles = StyleSheet.create({
 });
 
 export default TabMapScreen;
+
+// const reference = database().ref('/location');
