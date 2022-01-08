@@ -84,6 +84,12 @@ const SettingsScreen = ({navigation}: IProps) => {
             ShortMethods.stopForeGroundService();
           }}
         />
+        <Button
+          title="Start location service"
+          onPress={() => {
+            ShortMethods.startServiceLocation();
+          }}
+        />
         <Button title="Назад" onPress={() => navigation.goBack()} />
       </View>
     </>

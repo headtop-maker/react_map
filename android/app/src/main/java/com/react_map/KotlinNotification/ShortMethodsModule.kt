@@ -11,7 +11,6 @@ import com.facebook.react.bridge.*
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-
 import java.util.*
 
 class ShortMethodsModule internal constructor(private val reactContext: ReactApplicationContext) :
@@ -66,24 +65,30 @@ class ShortMethodsModule internal constructor(private val reactContext: ReactApp
     }
 
     @ReactMethod
-    fun startForeGroundService(){
+    fun startForeGroundService() {
         val intent = Intent(getReactApplicationContext(), MyForegroundService::class.java)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             intent.action = "START"
-            intent.putExtra("devId","location")
+            intent.putExtra("devId", "location")
             getReactApplicationContext()?.startForegroundService(intent)
-        };
+        }
     }
 
-
     @ReactMethod
-    fun stopForeGroundService(){
+    fun stopForeGroundService() {
         val intent = Intent(getReactApplicationContext(), MyForegroundService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             intent.action = "STOP"
             getReactApplicationContext()?.stopService(intent)
-        };
+        }
     }
 
+    @ReactMethod
+    fun startServiceLocation() {
+        val intent = Intent(currentActivity, MyLocation::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            reactApplicationContext?.startForegroundService(intent)
+        }
+    }
 }
